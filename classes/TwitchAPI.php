@@ -52,7 +52,6 @@ class TwitchAPI {
         $client_id = $twitchAPISettings['Twitch']['client_id'];
         $client_secret = $twitchAPISettings['Twitch']['client_secret'];
         $count = \DB::table('tohur_twitchintergration_apptokens')->count();
-        $count = \DB::table('tohur_twitchintergration_apptokens')->count();
         if ($count == 0) {
             $tokenRequest = json_decode($this->helixTokenRequest($this->oAuthbaseUrl . "?client_id=" . $client_id . "&client_secret=" . $client_secret . "&grant_type=client_credentials&scope=channel:read:hype_train%20channel:read:subscriptions%20bits:read%20user:read:broadcast%20user:read:email"), true);
             $accessToken = $tokenRequest['access_token'];
