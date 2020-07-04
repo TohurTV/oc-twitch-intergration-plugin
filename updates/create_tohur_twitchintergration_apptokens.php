@@ -11,11 +11,9 @@ class CreateTohurTwitchIntergrationAppTokensTable extends Migration {
         Schema::create('tohur_twitchintergration_apptokens', function($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('access_token')->default('');
-            $table->string('refresh_token')->default('');
-            $table->string('expires_in')->default('');
+            $table->string('access_token', 100)->default('')->index();
+            $table->string('expires_in', 100)->default('')->index();
             $table->timestamps();
-            $table->index(['access_token', 'refresh_token'], 'access_token_index');
         });
     }
 
