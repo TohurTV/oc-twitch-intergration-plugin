@@ -1,0 +1,13 @@
+{% if __SELF__.bitsItems %}
+<div class="twitch-bitlist">
+    <div class="bits-grid">
+        {% for key,bit in __SELF__.bitsItems %}
+        <div class="video">
+            <p class="rank">{{ bit.rank|e }}</a></p>
+            <p class="name">{{ bit.user_name|e }}</a></p>
+            <p class="amount">{{ bit.score|e }} Bits</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

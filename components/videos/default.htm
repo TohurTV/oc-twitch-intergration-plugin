@@ -1,0 +1,27 @@
+{% if __SELF__.videoItems %}
+{% if __SELF__.property('videoType') == 'archive' or __SELF__.property('videoType') == 'highlight' or __SELF__.property('videoType') == 'upload'%}
+<div class="twitch-videolist">
+    <div class="videos-grid">
+        {% for key,video in __SELF__.videoItems %}
+        <div class="video">
+            <a href="{{__SELF__.property('page')}}v{{ video.id }}"><img src="{{ video.thumbnail_url }}" alt="{{ video.title|e }}"></a>
+            <p class="name"><a class="name" href="{{__SELF__.property('page')}}v{{ video.id }}">{{ video.title|e }}</a></p>
+            <p class="viewer">{{ video.view_count|e }} Views</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="twitch-videolist">
+    <div class="videos-grid">
+        {% for key,video in __SELF__.videoItems %}
+        <div class="video">
+            <a href="{{__SELF__.property('page')}}{{ video.id }}"><img src="{{ video.thumbnail_url }}" alt="{{ video.title|e }}"></a>
+            <p class="name"><a class="name" href="{{__SELF__.property('page')}}{{ video.id }}">{{ video.title|e }}</a></p>
+            <p class="viewer">{{ video.views|e }} Views</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endif %}

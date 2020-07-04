@@ -1,0 +1,19 @@
+{
+    "name": "tohur/twitch-intergration-plugin",
+    "type": "october-plugin",
+    "description": "Twitch.tv plugin for October CMS",
+    "homepage": "https://github.com/TohurTV/oc-twitch-intergration-plugin",
+    "keywords": ["october", "octobercms", "twitch", "livestream", "stream"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joshua Webb",
+            "email": "tohur@tohur.me"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "composer/installers": "~1.0"
+    },
+    "minimum-stability": "dev"
+}

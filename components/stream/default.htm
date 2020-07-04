@@ -1,0 +1,46 @@
+<!-- Twitch Stream/Video -->
+
+<div id="twitch-embed"></div>
+
+<!-- Load the Twitch embed script -->
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+{% if __SELF__.property('type') == 'video' and __SELF__.property('dedicatedpage') == 'true' %}
+<!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+<script type="text/javascript">
+    new Twitch.Embed("twitch-embed", {
+        width: "{{__SELF__.property('width')}}",
+        height: "{{__SELF__.property('height')}}",
+        theme: "{{__SELF__.property('theme')}}",
+        video: "{{__SELF__.videoID}}",
+        // only needed if your site is also embedded on embed.example.com and othersite.example.com 
+        parent: ["{{__SELF__.property('parent')}}"]
+    });
+</script>
+{% elseif __SELF__.property('type') == 'video' and __SELF__.property('dedicatedpage') == 'false' %}
+<!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+<script type="text/javascript">
+    new Twitch.Embed("twitch-embed", {
+        width: "{{__SELF__.property('width')}}",
+        height: "{{__SELF__.property('height')}}",
+        theme: "{{__SELF__.property('theme')}}",
+        video: "v{{__SELF__.property('twitchId')}}",
+        // only needed if your site is also embedded on embed.example.com and othersite.example.com 
+        parent: ["{{__SELF__.property('parent')}}"]
+    });
+</script>
+{% elseif __SELF__.property('type') == 'clip' %}
+<iframe src="https://clips.twitch.tv/embed?clip={{__SELF__.videoID}}&parent={{__SELF__.property('parent')}}" frameborder="0" allowfullscreen="true" scrolling="no" height="{{__SELF__.property('height')}}" width="{{__SELF__.property('width')}}"></iframe>
+{% else %}
+<script type="text/javascript">
+    new Twitch.Embed("twitch-embed", {
+        width: "{{__SELF__.property('width')}}",
+        height: "{{__SELF__.property('height')}}",
+        theme: "{{__SELF__.property('theme')}}",
+        channel: "{{__SELF__.property('twitchId')}}",
+        // only needed if your site is also embedded on embed.example.com and othersite.example.com 
+        parent: ["{{__SELF__.property('parent')}}"]
+    });
+</script>
+{% endif %}
+
+
