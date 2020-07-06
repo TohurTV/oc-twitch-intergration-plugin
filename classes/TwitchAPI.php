@@ -166,7 +166,7 @@ class TwitchAPI {
     }
 
     /**
-     * Get User Follow Count
+     * Get Channel Follow Count
      *
      * @param string $type
      * @param int $limit
@@ -181,7 +181,7 @@ class TwitchAPI {
     }
 
     /**
-     * Get User Follow Count
+     * Get Latest channel follower
      *
      * @param string $type
      * @param int $limit
@@ -194,8 +194,9 @@ class TwitchAPI {
         $object = json_decode($this->helixApi($this->helixbaseUrl . "/users/follows?to_id=" . $channelID), true);
         return $object['data'][0]['from_name'];
     }
-        /**
-     * Get User Stream Information
+
+    /**
+     * Get channel Stream Information
      *
      * @param string $type
      * @param int $limit
@@ -208,6 +209,7 @@ class TwitchAPI {
         $object = json_decode($this->helixApi($this->helixbaseUrl . "/streams?user_id=" . $channelID), true);
         return $object['data'];
     }
+
     /**
      * Returns True of False whether the Channel is online or not
      *
@@ -217,9 +219,9 @@ class TwitchAPI {
     public function isChannelLive($channel) {
         $apiCall = $this->getStream($channel);
         if ($apiCall == null) {
-        return false;
+            return false;
         } else {
-           return true;
+            return true;
         }
     }
 
