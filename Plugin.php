@@ -12,7 +12,7 @@ use System\Classes\PluginBase;
 use System\Classes\SettingsManager;
 use October\Rain\Support\Collection;
 use Backend\Widgets\Form;
-use Tohur\TwitchIntergration\Classes\TwitchAPI;
+use Tohur\SocialConnect\Classes\Apis\TwitchAPI;
 
 class Plugin extends PluginBase {
 
@@ -42,6 +42,8 @@ class Plugin extends PluginBase {
         $schedule->call(function () {
             $twitch = new TwitchAPI();
             $twitchAPISettings = \Tohur\SocialConnect\Models\Settings::instance()->get('providers', []);
+            if (!strlen($twitchAPISettings['Twitch']['client_id']))
+                throw new ApplicationException('Twitter API access is not configured. Please configure it on the Social Connect Settings Twitter tab.');
             $client_id = $twitchAPISettings['Twitch']['client_id'];
             $client_secret = $twitchAPISettings['Twitch']['client_secret'];
             $tokenRequest = json_decode($twitch->helixTokenRequest($twitch->oAuthbaseUrl . "?client_id=" . $client_id . "&client_secret=" . $client_secret . "&grant_type=client_credentials&scope=channel:read:hype_train%20channel:read:subscriptions%20bits:read%20user:read:broadcast%20user:read:email"), true);

@@ -3,7 +3,7 @@
 namespace Tohur\TwitchIntergration\Components;
 
 use Cms\Classes\ComponentBase;
-use Tohur\TwitchIntergration\Classes\TwitchAPI;
+use Tohur\SocialConnect\Classes\Apis\TwitchAPI;
 
 class Bits extends ComponentBase {
 
