@@ -2,7 +2,6 @@
 
 namespace Tohur\TwitchIntergration\Classes;
 
-
 class TwitchAPI {
 
     /**
@@ -96,18 +95,6 @@ class TwitchAPI {
     }
 
     /**
-     * Do kraken API Request with given url
-     *
-     * @param string $url
-     * @return string
-     */
-    public function oldapiCheckRequest($url) {
-        $twitchAPISettings = \Tohur\SocialConnect\Models\Settings::instance()->get('providers', []);
-        $client_id = $twitchAPISettings['Twitch']['client_id'];
-        return file_get_contents($this->krakenbaseUrl . $url . "?client_id=" . $client_id . "&api_version=5");
-    }
-
-    /**
      * Get Videolist with given Type, Limit and Offset
      *
      * @param string $type
@@ -116,7 +103,8 @@ class TwitchAPI {
      * @return string
      */
     public function getVideoList($channel, $limit = 10, $offset = 0, $broadcastType = 'archive') {
-        $channelID = file_get_contents('https://api.tohur.me/twitch/id/' . $channel);
+        $user = $this->getUser($channel);
+        $channelID = $user[0]['id'];
         $object = json_decode($this->helixApi($this->helixbaseUrl . "/videos?user_id=" . $channelID . "&first=" . $limit . "&type=" . $broadcastType), true);
         return $object['data'];
     }
@@ -130,7 +118,8 @@ class TwitchAPI {
      * @return string
      */
     public function getClipList($channel, $limit = 10, $offset = 0, $period = 'all') {
-        $channelID = file_get_contents('https://api.tohur.me/twitch/id/' . $channel);
+        $user = $this->getUser($channel);
+        $channelID = $user[0]['id'];
         $object = json_decode($this->helixApi($this->helixbaseUrl . "/clips?broadcaster_id=" . $channelID . "&first=" . $limit), true);
         return $object['data'];
     }
@@ -149,17 +138,89 @@ class TwitchAPI {
     }
 
     /**
+     * Get Current Channel info 
+     *
+     * @param string $type
+     * @param int $limit
+     * @param int $offset
+     * @return string
+     */
+    public function getChannelinfo($channel) {
+        $user = $this->getUser($channel);
+        $channelID = $user[0]['id'];
+        $object = json_decode($this->helixApi($this->helixbaseUrl . "/channels?broadcaster_id=" . $channelID), true);
+        return $object['data'];
+    }
+
+    /**
+     * Get User
+     *
+     * @param string $type
+     * @param int $limit
+     * @param int $offset
+     * @return string
+     */
+    public function getUser($channel) {
+        $object = json_decode($this->helixApi($this->helixbaseUrl . "/users?login=" . $channel), true);
+        return $object['data'];
+    }
+
+    /**
+     * Get User Follow Count
+     *
+     * @param string $type
+     * @param int $limit
+     * @param int $offset
+     * @return string
+     */
+    public function getFollowcount($channel) {
+        $user = $this->getUser($channel);
+        $channelID = $user[0]['id'];
+        $object = json_decode($this->helixApi($this->helixbaseUrl . "/users/follows?to_id=" . $channelID), true);
+        return $object['total'];
+    }
+
+    /**
+     * Get User Follow Count
+     *
+     * @param string $type
+     * @param int $limit
+     * @param int $offset
+     * @return string
+     */
+    public function getLatestfollower($channel) {
+        $user = $this->getUser($channel);
+        $channelID = $user[0]['id'];
+        $object = json_decode($this->helixApi($this->helixbaseUrl . "/users/follows?to_id=" . $channelID), true);
+        return $object['data'][0]['from_name'];
+    }
+        /**
+     * Get User Stream Information
+     *
+     * @param string $type
+     * @param int $limit
+     * @param int $offset
+     * @return string
+     */
+    public function getStream($channel) {
+        $user = $this->getUser($channel);
+        $channelID = $user[0]['id'];
+        $object = json_decode($this->helixApi($this->helixbaseUrl . "/streams?user_id=" . $channelID), true);
+        return $object['data'];
+    }
+    /**
      * Returns True of False whether the Channel is online or not
      *
      * @param string $channel Name of the Twitch Channel
      * @return bool
      */
     public function isChannelLive($channel) {
-        $channelID = file_get_contents('https://api.tohur.me/twitch/id/' . $channel);
-        $callAPI = $this->oldapiCheckRequest("/streams/" . $channelID);
-        $dataArray = json_decode($callAPI, true);
-
-        return (!is_null($dataArray["stream"]) ) ? true : false;
+        $apiCall = $this->getStream($channel);
+        if ($apiCall == null) {
+        return false;
+        } else {
+           return true;
+        }
     }
 
 }
