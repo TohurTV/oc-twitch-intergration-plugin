@@ -2,6 +2,7 @@
 
 namespace Tohur\TwitchIntergration\Classes;
 
+
 class TwitchAPI {
 
     /**

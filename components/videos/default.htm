@@ -4,8 +4,8 @@
     <div class="videos-grid">
         {% for key,video in __SELF__.videoItems %}
         <div class="video">
-            <a href="{{__SELF__.property('page')}}v{{ video.id }}"><img src="{{ video.thumbnail_url }}" alt="{{ video.title|e }}"></a>
-            <p class="name"><a class="name" href="{{__SELF__.property('page')}}v{{ video.id }}">{{ video.title|e }}</a></p>
+            <a href="{{__SELF__.property('page')}}{{ video.id }}"><img src="{{ video.thumbnail_url }}" alt="{{ video.title|e }}"></a>
+            <p class="name"><a class="name" href="{{__SELF__.property('page')}}{{ video.id }}">{{ video.title|e }}</a></p>
             <p class="viewer">{{ video.view_count|e }} Views</p>
         </div>
         {% endfor %}
