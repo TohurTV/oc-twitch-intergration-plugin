@@ -4,3 +4,5 @@
     - Moving Access token refresh functions to Social Connect
 1.0.2:
     - Adding Bit Leaderboard Support
+1.0.3:
+    - Updating how  to find user for bits leaderboard. Please also update Social Connect

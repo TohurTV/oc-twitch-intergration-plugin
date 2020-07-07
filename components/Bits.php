@@ -33,10 +33,11 @@ class Bits extends ComponentBase {
                 'type' => 'string',
                 'default' => '10'
             ],
-            'username' => [
-                'title' => 'tohur.twitchintergration::lang.settings.username_title',
-                'description' => 'tohur.twitchintergration::lang.settings.username_description',
-                'type' => 'string'
+            'channel' => [
+                'title' => 'tohur.twitchintergration::lang.settings.channel_name',
+                'description' => 'tohur.twitchintergration::lang.settings.channel_description',
+                'type' => 'string',
+                'required' => true
             ]
         ];
     }
@@ -54,8 +55,9 @@ class Bits extends ComponentBase {
      */
     public function getBitsLeaders() {
         $twitch = new TwitchAPI();
-        $user = \Db::table('users')->where('username', $this->property('username'))->first();
-        $findToken = \DB::table('tohur_socialconnect_providers')->where('user_id', '=', array($user->id))->where('provider_id', '=', 'Twitch')->get();
+        $user = $twitch->getUser($this->property('channel'));
+        $channelID = $user[0]['id'];
+        $findToken = \DB::table('tohur_socialconnect_providers')->where('provider_userid', '=', $channelID)->where('provider_id', '=', 'Twitch')->get();
         $token = $findToken[0]->provider_token;
         $apiCall = $twitch->getBitsLeaderboard($token, $this->property('limit'));
 
