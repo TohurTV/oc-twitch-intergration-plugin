@@ -52,7 +52,12 @@ class Plugin extends PluginBase {
             $tokens = \DB::select('select * from tohur_socialconnect_twitch_apptokens where id = ?', array(1));
             $expiresIn = $tokens[0]->expires_in;
             $current = Carbon::now();
-            $expired = Carbon::parse($tokens[0]->updated_at)->addSeconds($expiresIn);
+            if ($tokens[0]->updated_at == null) {
+                $time = $tokens[0]->created_at;
+            } else {
+                $time = $tokens[0]->updated_at;
+            }
+            $expired = Carbon::parse($time)->addSeconds($expiresIn);
 
             if ($current > $expired) {
                 $tokenRequest = json_decode($twitch->helixTokenRequest($twitch->oAuthbaseUrl . "?client_id=" . $client_id . "&client_secret=" . $client_secret . "&grant_type=refresh_token&scope=channel:read:hype_train%20channel:read:subscriptions%20bits:read%20user:read:broadcast%20user:read:email"), true);
@@ -62,7 +67,7 @@ class Plugin extends PluginBase {
                         ->where('id', 1)
                         ->update(['access_token' => $accessToken, 'expires_in' => $tokenExpires, 'updated_at' => now()]);
             }
-        })->weekly();
+        })->daily();
     }
 
     public function boot() {
