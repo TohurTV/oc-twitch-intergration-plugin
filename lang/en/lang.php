@@ -12,7 +12,7 @@ return [
         'channel_client_description' => 'Enter the Client ID of the Twitch Channel you wish to connect to',
         'channel_client_id2' => 'Client ID for access token',
         'channel_client_description2' => 'Enter the Client ID of the acess token',
-        'channel_access token' => 'Acess toke for this client id',
+        'channel_access_token' => 'Acess toke for this client id',
         'channel_access_token_description2' => 'Enter acess token for this client id',
         'twitch_id_title' => 'Twitch ID',
         'twitch_id_description' => 'Channel name for live streams or video id for past broadcast.',
@@ -41,7 +41,9 @@ return [
         'chat_width_name' => 'Chat Width',
         'chat_width_description' => 'Width of the Chat',
         'oldapi_name' => 'Use Kraken API?',
-        'oldapi_description' => 'should use old kraken api? True uses new API does not work in all cases'
+        'oldapi_description' => 'should use old kraken api? True uses new API does not work in all cases',
+        'username_title' => 'Frontend Username of Channel',
+        'username_description' => 'The frontend user name of the channel'
     ],
     'check' => [
         'name' => 'Twitch Online Check',

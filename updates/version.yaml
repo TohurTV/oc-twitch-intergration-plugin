@@ -2,3 +2,5 @@
     - First version of Twitch Intergration
 1.0.1:
     - Moving Access token refresh functions to Social Connect
+1.0.2:
+    - Adding Bit Leaderboard Support

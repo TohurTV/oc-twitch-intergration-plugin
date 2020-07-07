@@ -34,7 +34,7 @@ class Plugin extends PluginBase {
 
     public function registerComponents() {
         return [
-//            'Tohur\twitchintergration\Components\Bits' => 'bits',
+            'Tohur\twitchintergration\Components\Bits' => 'bits',
             'Tohur\twitchintergration\Components\Check' => 'check',
             'Tohur\twitchintergration\Components\Stream' => 'stream',
             'Tohur\twitchintergration\Components\Videos' => 'stream'
