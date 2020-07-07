@@ -1,2 +1,4 @@
 1.0.0:
     - First version of Twitch Intergration
+1.0.1:
+    - Moving Access token refresh functions to Social Connect
