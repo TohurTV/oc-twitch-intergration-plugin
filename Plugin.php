@@ -3,19 +3,10 @@
 namespace Tohur\TwitchIntergration;
 
 use App;
-use Backend;
 use Event;
 use URL;
 use Config;
-use Illuminate\Foundation\AliasLoader;
 use System\Classes\PluginBase;
-use System\Classes\SettingsManager;
-use October\Rain\Support\Collection;
-use October\Rain\Exception\ApplicationException;
-use Backend\Widgets\Form;
-use Carbon\Carbon;
-use Tohur\SocialConnect\Classes\Apis\TwitchAPI;
-use Tohur\SocialConnect\Models\TwitchApptokens;
 
 class Plugin extends PluginBase {
 
@@ -43,7 +34,7 @@ class Plugin extends PluginBase {
 
 
     public function boot() {
-        
+
     }
 
 }
